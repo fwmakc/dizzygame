@@ -29,7 +29,7 @@
 	<plugin name="cordova-plugin-statusbar" />
 	<plugin name="cordova-plugin-whitelist" />
 	<plugin name="cordova-plugin-wkwebview-engine" />
-	<gap:plugin name="com.cranberrygame.cordova.plugin.exitappatsecond" source="plugins.cordova.io" />
+	<plugin name="com.cranberrygame.cordova.plugin.exitappatsecond" source="plugins.cordova.io" />
 
 
 	<engine name="ios" />
