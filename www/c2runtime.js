@@ -26048,234 +26048,6 @@ cr.plugins_.Touch = function(runtime)
 }());
 ;
 ;
-/*
-cr.plugins_.cranberrygame_CordovaEvent = function(runtime)
-{
-	this.runtime = runtime;
-	Type
-		onCreate
-	Instance
-		onCreate
-		draw
-		drawGL
-	cnds
-	acts
-	exps
-};
-*/
-cr.plugins_.cranberrygame_CordovaEvent = function(runtime)
-{
-	this.runtime = runtime;
-};
-(function ()
-{
-	var pluginProto = cr.plugins_.cranberrygame_CordovaEvent.prototype;
-	pluginProto.Type = function(plugin)
-	{
-		this.plugin = plugin;
-		this.runtime = plugin.runtime;
-	};
-	var typeProto = pluginProto.Type.prototype;
-	typeProto.onCreate = function()
-	{
-/*
-		var newScriptTag=document.createElement('script');
-		newScriptTag.setAttribute("type","text/javascript");
-		newScriptTag.setAttribute("src", "mylib.js");
-		document.getElementsByTagName("head")[0].appendChild(newScriptTag);
-		var scripts=document.getElementsByTagName("script");
-		var scriptExist=false;
-		for(var i=0;i<scripts.length;i++){
-			if(scripts[i].src.indexOf("cordova.js")!=-1||scripts[i].src.indexOf("phonegap.js")!=-1){
-				scriptExist=true;
-				break;
-			}
-		}
-		if(!scriptExist){
-			var newScriptTag=document.createElement("script");
-			newScriptTag.setAttribute("type","text/javascript");
-			newScriptTag.setAttribute("src", "cordova.js");
-			document.getElementsByTagName("head")[0].appendChild(newScriptTag);
-		}
-*/
-		if(this.runtime.isBlackberry10 || this.runtime.isWindows8App || this.runtime.isWindowsPhone8 || this.runtime.isWindowsPhone81){
-			var scripts=document.getElementsByTagName("script");
-			var scriptExist=false;
-			for(var i=0;i<scripts.length;i++){
-				if(scripts[i].src.indexOf("cordova.js")!=-1||scripts[i].src.indexOf("phonegap.js")!=-1){
-					scriptExist=true;
-					break;
-				}
-			}
-			if(!scriptExist){
-				var newScriptTag=document.createElement("script");
-				newScriptTag.setAttribute("type","text/javascript");
-				newScriptTag.setAttribute("src", "cordova.js");
-				document.getElementsByTagName("head")[0].appendChild(newScriptTag);
-			}
-		}
-	};
-	pluginProto.Instance = function(type)
-	{
-		this.type = type;
-		this.runtime = type.runtime;
-	};
-	var instanceProto = pluginProto.Instance.prototype;
-	instanceProto.onCreate = function()
-	{
-/*
-		var self=this;
-		window.addEventListener("resize", function () {//cranberrygame
-			self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.TriggerCondition, self);
-		});
-*/
-		if (!(this.runtime.isAndroid || this.runtime.isBlackberry10 || this.runtime.isiOS || this.runtime.isWindows8App || this.runtime.isWindowsPhone8 || this.runtime.isWindowsPhone81))
-			return;
-		var self=this;
-		document.addEventListener("deviceready",
-		function() {
-			document.addEventListener("backbutton",
-			function() {
-				self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnBackButton, self);
-			}, false);
-			document.addEventListener("menubutton",
-			function() {
-				self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnMenuButton, self);
-			}, false);
-			document.addEventListener("pause",
-			function() {
-				self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnPause, self);
-			}, false);
-			document.addEventListener("resume",
-			function() {
-				self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnResume, self);
-			}, false);
-			document.addEventListener("searchbutton",
-			function() {
-				self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnSearchButton, self);
-			}, false);
-			document.addEventListener("startcallbutton",
-			function() {
-				self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnStartCallButton, self);
-			}, false);
-			document.addEventListener("endcallbutton",
-			function() {
-				self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnEndCallButton, self);
-			}, false);
-			if (!self.runtime.isAndroid) {
-				document.addEventListener("volumedownbutton",
-				function() {
-					self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnVolumeDownButton, self);
-				}, false);
-				document.addEventListener("volumeupbutton",
-				function() {
-					self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnVolumeUpButton, self);
-				}, false);
-			}
-			var intervalId = setInterval(function() {
-				if (self.runtime.running_layout) {
-					self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnDeviceReady, self);
-					clearInterval(intervalId);
-				}
-			}, 1);
-		}, false);
-	};
-	instanceProto.draw = function(ctx)
-	{
-	};
-	instanceProto.drawGL = function (glw)
-	{
-	};
-/*
-	instanceProto.at = function (x)
-	{
-		return this.arr[x];
-	};
-	instanceProto.set = function (x, val)
-	{
-		this.arr[x] = val;
-	};
-*/
-	function Cnds() {};
-/*
-	Cnds.prototype.MyCondition = function (myparam)
-	{
-		return myparam >= 0;
-	};
-	Cnds.prototype.TriggerCondition = function ()
-	{
-		return true;
-	};
-*/
-	Cnds.prototype.OnDeviceReady = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnBackButton = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnMenuButton = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnPause = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnResume = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnSearchButton = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnStartCallButton = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnEndCallButton = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnVolumeDownButton = function ()
-	{
-		return true;
-	};
-	Cnds.prototype.OnVolumeUpButton = function ()
-	{
-		return true;
-	};
-	pluginProto.cnds = new Cnds();
-	function Acts() {};
-/*
-	Acts.prototype.MyAction = function (myparam)
-	{
-		alert(myparam);
-	};
-	Acts.prototype.TriggerAction = function ()
-	{
-		var self=this;
-		self.runtime.trigger(cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.TriggerCondition, self);
-	};
-*/
-	pluginProto.acts = new Acts();
-	function Exps() {};
-/*
-	Exps.prototype.MyExpression = function (ret)	// 'ret' must always be the first parameter - always return the expression's result through it!
-	{
-		ret.set_int(1337);				// return our value
-	};
-	Exps.prototype.Text = function (ret, param) //cranberrygame
-	{
-		ret.set_string("Hello");		// for ef_return_string
-	};
-*/
-	pluginProto.exps = new Exps();
-}());
-;
-;
 cr.plugins_.video = function(runtime)
 {
 	this.runtime = runtime;
@@ -28351,7 +28123,6 @@ cr.behaviors.solid = function(runtime)
 	behaviorProto.acts = new Acts();
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.cranberrygame_CordovaEvent,
 	cr.plugins_.AJAX,
 	cr.plugins_.Audio,
 	cr.plugins_.Arr,
@@ -28428,7 +28199,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Spritefont2.prototype.exps.Y,
 	cr.plugins_.Sprite.prototype.acts.AddInstanceVar,
 	cr.plugins_.Browser.prototype.cnds.OnMenuButton,
-	cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnMenuButton,
 	cr.plugins_.Arr.prototype.acts.AddInstanceVar,
 	cr.plugins_.Arr.prototype.acts.SetBoolInstanceVar,
 	cr.plugins_.Keyboard.prototype.cnds.OnAnyKey,
@@ -28532,7 +28302,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Function.prototype.exps.Param,
 	cr.plugins_.Spritefont2.prototype.exps.X,
 	cr.plugins_.Spritefont2.prototype.exps.Width,
-	cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnBackButton,
 	cr.plugins_.Browser.prototype.acts.Close,
 	cr.plugins_.Function.prototype.cnds.CompareParam,
 	cr.system_object.prototype.acts.LoadState,
