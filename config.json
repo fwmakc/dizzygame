@@ -27,8 +27,7 @@
 		{ "id": "cordova-plugin-inappbrowser", "version": null },
 		{ "id": "cordova-plugin-statusbar", "version": null },
 		{ "id": "cordova-plugin-whitelist", "version": null },
-		{ "id": "cordova-plugin-wkwebview-engine", "version": null },
-		{ "id": "https://github.com/cranberrygame/cordova-plugin-exitappatsecond", "version": null }
+		{ "id": "cordova-plugin-wkwebview-engine", "version": null }
 	],
 	"android": {
 		"min": 16,

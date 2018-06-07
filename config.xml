@@ -29,7 +29,6 @@
 	<plugin name="cordova-plugin-statusbar" />
 	<plugin name="cordova-plugin-whitelist" />
 	<plugin name="cordova-plugin-wkwebview-engine" />
-	<plugin name="https://github.com/cranberrygame/cordova-plugin-exitappatsecond/www/exitappatsecond.js" />
 
 
 	<engine name="ios" />

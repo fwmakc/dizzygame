@@ -20186,171 +20186,6 @@ cr.plugins_.Browser = function(runtime)
 }());
 ;
 ;
-/*
-cr.plugins_.CordovaExitAppAtSecond = function(runtime)
-{
-	this.runtime = runtime;
-	Type
-		onCreate
-	Instance
-		onCreate
-		draw
-		drawGL
-	cnds
-	acts
-	exps
-};
-*/
-cr.plugins_.CordovaExitAppAtSecond = function(runtime)
-{
-	this.runtime = runtime;
-};
-(function ()
-{
-	var pluginProto = cr.plugins_.CordovaExitAppAtSecond.prototype;
-	pluginProto.Type = function(plugin)
-	{
-		this.plugin = plugin;
-		this.runtime = plugin.runtime;
-	};
-	var typeProto = pluginProto.Type.prototype;
-	typeProto.onCreate = function()
-	{
-/*
-		var newScriptTag=document.createElement('script');
-		newScriptTag.setAttribute("type","text/javascript");
-		newScriptTag.setAttribute("src", "mylib.js");
-		document.getElementsByTagName("head")[0].appendChild(newScriptTag);
-		var scripts=document.getElementsByTagName("script");
-		var scriptExist=false;
-		for(var i=0;i<scripts.length;i++){
-			if(scripts[i].src.indexOf("cordova.js")!=-1||scripts[i].src.indexOf("phonegap.js")!=-1){
-				scriptExist=true;
-				break;
-			}
-		}
-		if(!scriptExist){
-			var newScriptTag=document.createElement("script");
-			newScriptTag.setAttribute("type","text/javascript");
-			newScriptTag.setAttribute("src", "cordova.js");
-			document.getElementsByTagName("head")[0].appendChild(newScriptTag);
-		}
-*/
-		if(this.runtime.isBlackberry10 || this.runtime.isWindows8App || this.runtime.isWindowsPhone8 || this.runtime.isWindowsPhone81){
-			var scripts=document.getElementsByTagName("script");
-			var scriptExist=false;
-			for(var i=0;i<scripts.length;i++){
-				if(scripts[i].src.indexOf("cordova.js")!=-1||scripts[i].src.indexOf("phonegap.js")!=-1){
-					scriptExist=true;
-					break;
-				}
-			}
-			if(!scriptExist){
-				var newScriptTag=document.createElement("script");
-				newScriptTag.setAttribute("type","text/javascript");
-				newScriptTag.setAttribute("src", "cordova.js");
-				document.getElementsByTagName("head")[0].appendChild(newScriptTag);
-			}
-		}
-	};
-	pluginProto.Instance = function(type)
-	{
-		this.type = type;
-		this.runtime = type.runtime;
-	};
-	var instanceProto = pluginProto.Instance.prototype;
-	instanceProto.onCreate = function()
-	{
-/*
-		var self = this;
-		window.addEventListener("resize", function () {//cranberrygame
-			self.runtime.trigger(cr.plugins_.CordovaExitAppAtSecond.prototype.cnds.TriggerCondition, self);
-		});
-*/
-		if (!(this.runtime.isAndroid || this.runtime.isBlackberry10 || this.runtime.isiOS || this.runtime.isWindows8App || this.runtime.isWindowsPhone8 || this.runtime.isWindowsPhone81))
-			return;
-        if (typeof window["exitappatsecond"] == 'undefined')
-            return;
-		var self = this;
-		window["exitappatsecond"].onExitAppAtSecond = function () {
-			self.runtime.trigger(cr.plugins_.CordovaExitAppAtSecond.prototype.cnds.OnExitAppAtSecond, self);
-		};
-	};
-	instanceProto.draw = function(ctx)
-	{
-	};
-	instanceProto.drawGL = function (glw)
-	{
-	};
-/*
-	instanceProto.at = function (x)
-	{
-		return this.arr[x];
-	};
-	instanceProto.set = function (x, val)
-	{
-		this.arr[x] = val;
-	};
-*/
-	function Cnds() {};
-/*
-	Cnds.prototype.MyCondition = function (myparam)
-	{
-		return myparam >= 0;
-	};
-	Cnds.prototype.TriggerCondition = function ()
-	{
-		return true;
-	};
-*/
-	Cnds.prototype.OnExitAppAtSecond = function ()
-	{
-		return true;
-	};
-	pluginProto.cnds = new Cnds();
-	function Acts() {};
-/*
-	Acts.prototype.MyAction = function (myparam)
-	{
-		alert(myparam);
-	};
-	Acts.prototype.TriggerAction = function ()
-	{
-		var self=this;
-		self.runtime.trigger(cr.plugins_.CordovaExitAppAtSecond.prototype.cnds.TriggerCondition, self);
-	};
-*/
-	Acts.prototype.ExitAppAtSecond = function (myparam)
-	{
-		if (!(this.runtime.isAndroid || this.runtime.isBlackberry10 || this.runtime.isiOS || this.runtime.isWindows8App || this.runtime.isWindowsPhone8 || this.runtime.isWindowsPhone81))
-			return;
-        if (typeof window["exitappatsecond"] == 'undefined')
-            return;
-		var self = this;
-		if(this.runtime.isAndroid || this.runtime.isWindowsPhone8 || this.runtime.isWindowsPhone81){
-			window["exitappatsecond"]["exitAppAtSecond"]();
-		}
-		else{
-			self.runtime.trigger(cr.plugins_.CordovaExitAppAtSecond.prototype.cnds.OnExitAppAtSecond, self);
-			navigator["app"]["exitApp"]();
-		}
-	};
-	pluginProto.acts = new Acts();
-	function Exps() {};
-/*
-	Exps.prototype.MyExpression = function (ret)	// 'ret' must always be the first parameter - always return the expression's result through it!
-	{
-		ret.set_int(1337);				// return our value
-	};
-	Exps.prototype.Text = function (ret, param) //cranberrygame
-	{
-		ret.set_string("Hello");		// for ef_return_string
-	};
-*/
-	pluginProto.exps = new Exps();
-}());
-;
-;
 cr.plugins_.Function = function(runtime)
 {
 	this.runtime = runtime;
@@ -28521,7 +28356,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Audio,
 	cr.plugins_.Arr,
 	cr.plugins_.Browser,
-	cr.plugins_.CordovaExitAppAtSecond,
 	cr.plugins_.Function,
 	cr.plugins_.Keyboard,
 	cr.plugins_.Sprite,
@@ -28700,7 +28534,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Spritefont2.prototype.exps.Width,
 	cr.plugins_.cranberrygame_CordovaEvent.prototype.cnds.OnBackButton,
 	cr.plugins_.Browser.prototype.acts.Close,
-	cr.plugins_.CordovaExitAppAtSecond.prototype.acts.ExitAppAtSecond,
 	cr.plugins_.Function.prototype.cnds.CompareParam,
 	cr.system_object.prototype.acts.LoadState,
 	cr.plugins_.AJAX.prototype.cnds.OnComplete,
